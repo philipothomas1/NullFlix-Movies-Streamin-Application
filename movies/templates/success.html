@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+	<!-- partners -->
+    {% block content %}
+	<section class="section" style="margin-top: 25px;">
+		<div class="container">
+			<div class="row">
+				<!-- section title -->
+				<div class="col-12">
+					<h2 class="section__title section__title--no-margin">Payment Success</h2>
+				</div>
+				<!-- end section title -->
+
+				<!-- section text -->
+				<div class="col-12">
+					<p class="section__text section__text--last-with-margin">Your Payment was <b>successfull</b> You will automatically be redirected to Home page after 5 seconds.</p>
+				</div>
+				<!-- end section text -->
+
+			
+			</div>
+		</div>
+	</section>
+    
+	<!-- end partners -->
+{% comment %} <script>
+    function setTimeout(){
+        setTimeout("window.location.href=;", 5000);
+    });
+</script> {% endcomment %}
+
+
+
+
+<script type="text/JavaScript">
+    setTimeout(function(){
+        window.location.href = '/';
+     }, 5000);
+    
+</script>    
+{% endblock content %}
+
+
+
+

@@ -1,0 +1,334 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	{% comment %} <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+	<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>  {% endcomment %}
+
+	<!-- Font -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600%7CUbuntu:300,400,500,700" rel="stylesheet">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="{% static 'css/bootstrap-reboot.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/bootstrap-grid.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/jquery.mCustomScrollbar.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/nouislider.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/ionicons.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/plyr.css' %}">
+	<link rel="stylesheet" href="{% static 'css/photoswipe.css' %}">
+	<link rel="stylesheet" href="{% static 'css/default-skin.css' %}">
+	<link rel="stylesheet" href="{% static 'css/main.css' %}">
+
+
+
+	{% comment %} <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> {% endcomment %}
+
+
+
+
+	
+	<link rel="icon" type="image/png" href="{% static 'icon/favicon-32x32.png' %} " sizes="32x32">
+	<link rel="apple-touch-icon" href="{% static 'icon/favicon-32x32.png' %}">
+	<link rel="apple-touch-icon" sizes="72x72" href="{% static 'icon/apple-touch-icon-72x72.png' %}">
+	<link rel="apple-touch-icon" sizes="114x114" href="{% static 'icon/apple-touch-icon-114x114.png' %}">
+	<link rel="apple-touch-icon" sizes="144x144" href="{% static 'icon/apple-touch-icon-144x144.png' %}">
+
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="author" content="Dmitry Volkov">
+	<title>FlixGo – Online Movies, TV Shows & Cinema HTML Template</title>
+
+
+
+
+</head>
+<body class="body">
+	
+	<!-- header -->
+	<header class="header">
+		<div class="header__wrap">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<div class="header__content">
+							<!-- header logo -->
+							<a href="index.html" class="header__logo">
+								<img src="{% static 'img/logo.svg' %}" alt="">
+							</a>
+							<!-- end header logo -->
+
+							<!-- header nav -->
+							<ul class="header__nav">
+								<!-- dropdown -->
+								<li class="header__nav-item">
+									<a class="dropdown-toggle header__nav-link" href="{% url 'movies:home' %}"  aria-haspopup="true" aria-expanded="false">Home</a>
+
+
+								</li>
+								<!-- end dropdown -->
+
+								<!-- dropdown -->
+								<li class="header__nav-item">
+									<a class="dropdown-toggle header__nav-link" href="#" role="button" id="dropdownMenuCatalog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Genre</a>
+
+									<ul class="dropdown-menu header__dropdown-menu" aria-labelledby="dropdownMenuCatalog">
+										{% for genres in moviegenre %} 
+										<li><a href="{{ genres.get_absolute_url }}">{{ genres.genre_name }}</a></li>
+										{% endfor %} 
+										
+									</ul>
+								</li>
+								<!-- end dropdown -->
+
+								<li class="header__nav-item">
+									<a href="{% url 'movies:choosesubscriptionplan' %}" class="header__nav-link">Pricing Plan</a>
+								</li>
+
+								<li class="header__nav-item">
+									<a href="{% url 'movies:tv_series' %}" class="header__nav-link">TV SERIES</a>
+								</li>
+
+								<!-- dropdown -->
+								<li class="dropdown header__nav-item">
+									<a class="dropdown-toggle header__nav-link header__nav-link--more" href="#" role="button" id="dropdownMenuMore" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="icon ion-ios-more"></i></a>
+
+									<ul class="dropdown-menu header__dropdown-menu" aria-labelledby="dropdownMenuMore">
+										<li><a href="{% url 'userprofiles:userprofile' %}">My Profile</a></li>
+										<li><a href="signin.html">Sign In</a></li>
+										<li><a href="signup.html">Sign Up</a></li>
+										<li><a href="404.html">404 Page</a></li>
+									</ul>
+								</li>
+								<!-- end dropdown -->
+							</ul>
+							<!-- end header nav -->
+
+							<!-- header auth -->
+							<div class="header__auth">
+							<button class="header__search-btn" type="button">
+								<i class="icon ion-ios-search"></i>
+							</button>
+						</div>
+							{% if request.user.is_authenticated %}
+							<div class="header__auth">
+								
+
+								<a href="/accounts/logout" class="header__sign-in">
+									<i class="icon ion-ios-log-in"></i>
+									<span>sign out</span>
+								</a>
+								{% comment %} <a href="/accounts/logout" class="header__sign-in">
+									<i class="icon ion-ios-log-in"></i>
+									<span>{{ user }}</span>
+								</a> {% endcomment %}
+							</div>
+							{% else %}
+							<div class="header__auth">
+								{% comment %} <button class="header__search-btn" type="button">
+									<i class="icon ion-ios-search"></i>
+								</button> {% endcomment %}
+
+								<a href="/accounts/login" class="header__sign-in">
+									<i class="icon ion-ios-log-in"></i>
+									<span>sign in</span>
+								</a>
+							</div>
+							{% endif %}
+							<!-- end header auth -->
+
+							<!-- header menu btn -->
+							<button class="header__btn" type="button">
+								<span></span>
+								<span></span>
+								<span></span>
+							</button>
+							<!-- end header menu btn -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		{% for message in messages %}
+<div class="toast notification bg-{% if message.tags == 'error' %}danger{% else %}{{message.tags}}{% endif %}" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000" style="position: absolute;
+  top: 1rem;
+  right: 3rem;">
+  <div class="toast-header">
+	<strong class="mr-auto">
+	  {% if message.tags == 'error' %}
+		<i class="fas fa-times mr-2"></i>
+	  {% elif message.tags == 'warning' %}
+		<i class="fas fa-exclamation mr-2"></i>
+	  {% elif message.tags == 'info' %}
+		<i class="fas fa-info mr-2"></i>
+	  {% elif message.tags == 'success' %}
+		<i class="fas fa-check mr-2"></i>
+	  {% endif %}
+	  {{message.tags|capfirst}}
+	</strong>
+	<button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+	  <span aria-hidden="true">&times;</span>
+	</button>
+  </div>
+  <div class="toast-body">
+	{{message|safe}}
+  </div>
+</div>
+{% endfor %} 
+
+		<!-- header search -->
+
+
+		<form action="" class="header__search" method="GET">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<div class="header__search-content">
+							<input id="tags" type="text" placeholder="Search for a movie, TV Series that you are looking for">
+							<button type="submit">search</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+		<script>
+			$( function() {
+				var availableTags=[
+				{% for movie in movies %}
+				{{ movie.Title }}
+				{% endfor %}
+				];
+			
+			  $( "#tags" ).autocomplete({
+				source: availableTags,
+				minLength:3
+	
+			  });
+			} );
+		</script>
+		
+		<!-- end header search -->
+	</header>
+	<!-- end header -->
+	
+    {% block content %}
+    {% endblock content %}
+
+
+<!-- footer -->
+	<footer class="footer">
+		<div class="container">
+			<div class="row">
+				<!-- footer list -->
+				<div class="col-12 col-md-3">
+					<h6 class="footer__title">Download Our App</h6>
+					<ul class="footer__app">
+						<li><a href="#"><img src="img/Download_on_the_App_Store_Badge.svg" alt=""></a></li>
+						<li><a href="#"><img src="img/google-play-badge.png" alt=""></a></li>
+					</ul>
+				</div>
+				<!-- end footer list -->
+
+				<!-- footer list -->
+				<div class="col-6 col-sm-4 col-md-3">
+					<h6 class="footer__title">Resources</h6>
+					<ul class="footer__list">
+						<li><a href="#">About Us</a></li>
+						<li><a href="#">Pricing Plan</a></li>
+						<li><a href="#">Help</a></li>
+					</ul>
+				</div>
+				<!-- end footer list -->
+
+				<!-- footer list -->
+				<div class="col-6 col-sm-4 col-md-3">
+					<h6 class="footer__title">Legal</h6>
+					<ul class="footer__list">
+						<li><a href="#">Terms of Use</a></li>
+						<li><a href="#">Privacy Policy</a></li>
+						<li><a href="#">Security</a></li>
+					</ul>
+				</div>
+				<!-- end footer list -->
+
+				<!-- footer list -->
+				<div class="col-12 col-sm-4 col-md-3">
+					<h6 class="footer__title">Contact</h6>
+					<ul class="footer__list">
+						<li><a href="tel:+18002345678">+1 (800) 234-5678</a></li>
+						<li><a href="mailto:support@moviego.com">support@flixgo.com</a></li>
+					</ul>
+					<ul class="footer__social">
+						<li class="facebook"><a href="#"><i class="icon ion-logo-facebook"></i></a></li>
+						<li class="instagram"><a href="#"><i class="icon ion-logo-instagram"></i></a></li>
+						<li class="twitter"><a href="#"><i class="icon ion-logo-twitter"></i></a></li>
+						<li class="vk"><a href="#"><i class="icon ion-logo-vk"></i></a></li>
+					</ul>
+				</div>
+				<!-- end footer list -->
+
+				<!-- footer copyright -->
+				<div class="col-12">
+					<div class="footer__copyright">
+						<small><a target="_blank" href="https://www.templateshub.net">Templates Hub</a></small>
+
+						<ul>
+							<li><a href="#">Terms of Use</a></li>
+							<li><a href="#">Privacy Policy</a></li>
+						</ul>
+					</div>
+				</div>
+				<!-- end footer copyright -->
+			</div>
+		</div>
+	</footer>
+	<!-- end footer -->
+
+	<!-- JS -->
+
+
+	<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+	<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+	<script src="{% static 'js/owl.carousel.min.js' %}"></script>
+	<script src="{% static 'js/jquery.mousewheel.min.js' %}"></script>
+	<script src="{% static 'js/jquery.mCustomScrollbar.min.js' %}"></script> 
+	<script src="{% static 'js/wNumb.js' %}"></script>
+	<script src="{% static 'js/nouislider.min.js' %}"></script>
+	<script src="{% static 'js/plyr.min.js' %}"></script>
+	<script src="{% static 'js/jquery.morelines.min.js' %}"></script>
+	<script src="{% static 'js/photoswipe.min.js' %}"></script>
+	<script src="{% static 'js/photoswipe-ui-default.min.js' %}"></script>
+	<script src="{% static 'js/main.js' %}"></script>
+
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$(".select-validity").on('click',function(){
+				var _planPrice=$(this).attr('data-planprice');
+				var _planValid=$(this).val();
+				var _planDisc=$(this).attr('data-discount');
+				var _totalPrice=_planPrice*_planValid;
+				if(_planDisc>0){
+					var _calDisc=_totalPrice*_planDisc/100;
+					_calDisc=_totalPrice-_calDisc;
+				}else{
+					_calDisc=_planPrice;
+				}
+				console.log(_calDisc);
+				$(".totalAmount").text(_calDisc);
+			});
+		});
+	</script>
+
+
+
+
+
+</body>
+
+</html>

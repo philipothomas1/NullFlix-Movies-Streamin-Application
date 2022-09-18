@@ -1,0 +1,154 @@
+{% extends "account/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% load i18n %}
+{% load account socialaccount %}
+
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+
+{% block content %}  
+
+  {% for message in messages %}
+  <div class="toast notification bg-{% if message.tags == 'error' %}danger{% else %}{{message.tags}}{% endif %}" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000" style="position: absolute;
+    top: 1rem;
+    right: 3rem;">
+    <div class="toast-header">
+      <strong class="mr-auto">
+        {% if message.tags == 'error' %}
+          <i class="fas fa-times mr-2"></i>
+        {% elif message.tags == 'warning' %}
+          <i class="fas fa-exclamation mr-2"></i>
+        {% elif message.tags == 'info' %}
+          <i class="fas fa-info mr-2"></i>
+        {% elif message.tags == 'success' %}
+          <i class="fas fa-check mr-2"></i>
+        {% endif %}
+        {{message.tags|capfirst}}
+      </strong>
+      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="toast-body">
+      {{message|safe}}
+    </div>
+  </div>
+{% endfor %}
+ 
+
+
+
+
+
+
+<div class="sign section--bg" data-bg="{% static 'img/section/section.jpg' %}">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="sign__content">
+          <!-- authorization form -->
+
+         <!--  <h1>{% trans "Sign In" %}</h1> -->
+         <form class="sign__form" method="POST" action="{% url 'account_login' %}">
+          <a href="index.html" class="sign__logo">
+            <img src="{% static 'img/logo.svg' %}" alt="">
+          </a>
+          {% comment %} <h1><strong><b>{% trans "Login To Your Account" %}</b></strong></h1> {% endcomment %}
+
+          {% csrf_token %}
+          {{ form|crispy }}
+          {% if redirect_field_value %}
+          <div class="sign__group">
+          <input type="hidden" class="sign__input" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+        </div>
+          {% endif %}
+          
+          <button class="sign__btn" type="submit">{% trans "Login" %}</button>
+          <a class="sign__text" href="{% url 'account_reset_password' %}"><p>Forgot password? </p><!-- {% trans "Forgot Password?" %} --></a>
+          <p class="sign__text">{% blocktrans %}Not registered?
+            <a class="sign__text" href="{{ signup_url }}">Create an account</a>{% endblocktrans %}
+          
+
+          
+        
+
+            {% get_providers as socialaccount_providers %}
+
+            {% comment %} {% if socialaccount_providers %} {% endcomment %}
+            {% comment %} <p>{% blocktrans with site.name as site_name %}Please sign in with one
+            of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
+            for a {{ site_name }} account and sign in below:{% endblocktrans %}</p> {% endcomment %}
+
+            <div class="socialaccount_ballot">
+
+              <ul class="socialaccount_providers">
+                {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+                <li>
+                  <a title="Google" class="socialaccount_provider google" 
+                         href="/accounts/google/login/?process=login&next=%2F">
+                         <img src="/static/icon/google.png" alt="HTML tutorial" style="width:42px;height:42px;"></a>
+                  </li>
+              </ul>
+
+              <div class="login-or">{% trans 'or' %}</div>
+
+            </div>
+
+            {% include "socialaccount/snippets/login_extra.html" %}
+           
+            {% comment %} <p class="message">Not registered? <a href="#">Create an account</a></p> {% endcomment %}
+          </form>
+
+
+
+            {% comment %} {% else %} {% endcomment %}
+           <!--  <p class="message">{% blocktrans %}Not registered?
+            <a href="{{ signup_url }}">Create an account</a>{% endblocktrans %}</p> -->
+            
+
+            {% comment %} <form class="sign__form" method="POST" action="{% url 'account_login' %}">
+              <a href="index.html" class="sign__logo">
+								<img src="{% static 'img/logo.svg' %}" alt="">
+							</a>
+              <h1><strong><b>{% trans "Login To Your Account" %}</b></strong></h1>
+              <!-- <p class="message">{% blocktrans %}Not registered?
+            <a href="{{ signup_url }}">Create an account</a>{% endblocktrans %}</p> -->
+              {% csrf_token %}
+              {{ form|crispy }}
+              {% if redirect_field_value %}
+              <div class="sign__group">
+              <input type="hidden" class="sign__input" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+            </div>
+              {% endif %}
+              
+              <button class="sign__btn" type="submit">{% trans "Login" %}</button>
+              <a class="sign__text" href="{% url 'account_reset_password' %}"><p>Forgot password? </p><!-- {% trans "Forgot Password?" %} --></a>
+            </form> {% endcomment %}
+              {% comment %} {% endif %} {% endcomment %}
+
+              
+            
+            						<!-- end authorization form -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+  
+
+
+  {% if messages %}
+  <script>
+      {% for message in messages %}
+          $(document).ready(function () {
+              $('.toast').toast('show');
+          });
+      {% endfor %}
+  </script>
+{% endif %}
+
+
+
+{% endblock %}

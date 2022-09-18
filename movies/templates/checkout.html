@@ -1,0 +1,443 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+
+
+<style>
+	/* The container */
+	.container {
+	  display: block;
+	  position: relative;
+	  padding-left: 35px;
+	  margin-bottom: 12px;
+	  color: #fff;
+	  font-size: 14px;
+	  -webkit-user-select: none;
+	  -moz-user-select: none;
+	  -ms-user-select: none;
+	  user-select: none;
+	}
+	
+	/* Hide the browser's default radio button */
+	.container input {
+	  position: absolute;
+	  opacity: 0;
+	  cursor: pointer;
+	}
+	
+	/* Create a custom radio button */
+	.checkmark {
+	  position: absolute;
+	  top: 0;
+	  left: 0;
+	  height: 18px;
+	  width: 18px;
+	  background-color: #eee;
+	  border-radius: 50%;
+	}
+	
+	/* On mouse-over, add a grey background color */
+	.container:hover input ~ .checkmark {
+	  background-color: #ccc;
+	}
+	
+	/* When the radio button is checked, add a blue background */
+	.container input:checked ~ .checkmark {
+	  background-color: #2196F3;
+	}
+	
+	/* Create the indicator (the dot/circle - hidden when not checked) */
+	.checkmark:after {
+	  content: "";
+	  position: absolute;
+	  display: none;
+	}
+	
+	/* Show the indicator (dot/circle) when checked */
+	.container input:checked ~ .checkmark:after {
+	  display: block;
+	}
+	
+	/* Style the indicator (dot/circle) */
+	.container .checkmark:after {
+		 top: 5px;
+		left: 5px;
+		width: 8px;
+		height: 8px;
+		border-radius: 50%;
+		background: white;
+	}
+	{% comment %} label:hover{
+		color: red;
+	} {% endcomment %}
+	</style>
+
+
+
+
+
+
+
+	<!-- page title -->
+	<section class="section section--first section--bg" data-bg="img/section/section.jpg">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="section__wrap">
+						<!-- section title -->
+						<h2 class="section__title">Checkout</h2>
+						<!-- end section title -->
+
+						<!-- breadcrumb -->
+						<ul class="breadcrumb">
+							<li class="breadcrumb__item"><a href="#">Home</a></li>
+							<li class="breadcrumb__item breadcrumb__item--active">Pricing</li>
+						</ul>
+						<!-- end breadcrumb -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- end page title -->
+
+	<!-- pricing -->
+	<div class="section">
+		<div class="container">
+			<div class="row">
+				{% comment %} <!-- plan features -->
+				<div class="col-12">
+					<ul class="row plan-features">
+						<li class="col-12 col-md-6 col-lg-4">1 month unlimited access!</li>
+						<li class="col-12 col-md-6 col-lg-4">Stream on your phone, laptop, tablet or TV.</li>
+						<li class="col-12 col-md-6 col-lg-4">1 month unlimited access!</li>
+						<li class="col-12 col-md-6 col-lg-4">Thousands of TV shows, movies & more.</li>
+						<li class="col-12 col-md-6 col-lg-4">You can even Download & watch offline.</li>
+						<li class="col-12 col-md-6 col-lg-4">Thousands of TV shows, movies & more.</li>
+					</ul>
+				</div>
+				<!-- end plan features --> {% endcomment %}
+
+				{% comment %} <!-- price -->
+				<div class="col-12 col-md-6 col-lg-4">
+					<div class="price">
+						<div class="price__item price__item--first"><span>Basic</span> <span>Free</span></div>
+						<div class="price__item"><span>7 days</span></div>
+						<div class="price__item"><span>720p Resolution</span></div>
+						<div class="price__item"><span>Limited Availability</span></div>
+						<div class="price__item"><span>Desktop Only</span></div>
+						<div class="price__item"><span>Limited Support</span></div>
+						<a href="#" class="price__btn">Choose Plan</a>
+					</div>
+				</div>
+				<!-- end price --> {% endcomment %}
+
+				<!-- price -->
+				<div class="col-12 col-md-6 col-lg-12">
+					<div class="price">
+						<div class="price__item price__item--first"><span>{{ subplanDetail.title }}</span> <span>TSH{{ subplanDetail.subprice }}/{{ subplanDetail.validity_days }} days</span></div>
+                        {% for feature in subplanDetail.subplanfeature_set.all %}
+                        <div class="price__item"><span>{{ feature.title }}</span></div>
+                        {% endfor %}
+						{% comment %} <div class="price__item"><span>{{ subplanDetail }}</span></div>
+						<div class="price__item"><span>{{ subplanDetail }}</span></div> {% endcomment %}
+						{% comment %} <div class="price__item"><span>TV & Desktop</span></div> {% endcomment %}
+						{% comment %} <div class="price__item"><span>24/7 Support</span></div> {% endcomment %}
+                        <br>
+                        <br>
+                        <div class="price__item price__item--first"><span>Price Discount</span> <span></span></div>
+                        {% comment %} <div class="price__item"><span>30%</span></div>
+                        <div class="price__item"><span>30%</span></div> {% endcomment %}
+                        {% comment %} <div style="
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-between;
+                        align-items: center;
+                        width: 100%;
+                        font-size: 15px;
+                        color: rgba(255,255,255,0.7);
+                        margin-top: 10px;
+                        padding-top: 10px;
+                        border-top: 1px solid rgba(255,255,255,0.05);
+                        position: relative;
+                        padding-left: 15px;
+                        font-family: 'Open Sans', sans-serif;">
+
+                            
+                                <input data-planprice="150" data-discount="0" type="radio" id="validity1" name="validity" class="select-validity" value="1" >
+								<label for="validity1">50% off 3 Months </label>
+							
+                        </div> {% endcomment %}
+                        {% comment %} <div style="
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-between;
+                        align-items: center;
+                        width: 100%;
+                        font-size: 15px;
+                        color: rgba(255,255,255,0.7);
+                        margin-top: 10px;
+                        padding-top: 10px;
+                        border-top: 1px solid rgba(255,255,255,0.05);
+                        position: relative;
+                        padding-left: 15px;
+                        font-family: 'Open Sans', sans-serif;">
+
+                            
+								<input data-planprice="150" data-discount="0" type="radio" id="validity1" name="validity" class="select-validity" value="1" >
+								<label for="validity1">50% off 3 Months </label>
+							
+                        </div> {% endcomment %}
+
+
+						{% comment %} <div class="form-check" style="
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-between;
+                        align-items: center;
+                        width: 100%;
+                        font-size: 15px;
+                        color: rgba(255,255,255,0.7);
+                        margin-top: 10px;
+                        padding-top: 10px;
+                        border-top: 1px solid rgba(255,255,255,0.05);
+                        position: relative;
+                        padding-left: 15px;
+                        font-family: 'Open Sans', sans-serif;">
+							<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
+							<label class="form-check-label" for="flexRadioDefault1">
+								30% off 2 Months
+							</label>
+						  </div> {% endcomment %}
+
+						  {% for discount in subplanDetail.subplandiscount_set.all %}
+						  
+						  <label class="container">{{ discount.total_discount }}% off for {{ discount.total_months }} Month
+							<input  data-planprice="{{ subplanDetail.subprice }}" data-discount="{{ discount.total_discount }}" type="radio" id="validity{{ discount.id }}"
+							class="select-validity" value="{{ discount.total_months }}"  name="validity">
+							<span class="checkmark"></span>
+						  </label> 
+						  {% endfor %}
+
+						  {% comment %} {% for discount in subplanDetail.subplandiscount_set.all %}
+						  <input  data-planprice="{{ subplanDetail.subprice }}" data-discount="{{ discount.total_discount }}" type="radio" id="{{ discount.id }}"
+							class="select-validity" value="{{ discount.total_months }}"  name="validity">
+							<span class="checkmark"></span>
+						  <label class="container" for="validity{{ discount.id }}">{{ discount.total_discount }}% off for {{ discount.total_months }} Month
+							
+						  </label> 
+						  {% endfor %} {% endcomment %}
+						  {% comment %} <label class="container" for="validity2">30% off  for 2 Months
+							<input data-planprice="{{subplanDetail.subprice}}"  data-discount="30" type="radio" id="validity2" 
+							class="select-validity" value="2" name="radio">
+							<span class="checkmark"></span>
+						  </label>
+						  <label class="container" for="validity3">50% off for 3 Months
+							<input data-planprice="{{subplanDetail.subprice}}" data-discount="50" type="radio" id="validity3" class="select-validity" value="3" name="radio">
+							<span class="checkmark"></span>
+						  </label> {% endcomment %}
+
+						  <div class="price__item price__item--first"
+						  >
+						  <hr style="border-top: 3px solid red;"><span>Total Amount:</span> <span class="totalAmount">{{ subplanDetail.subprice }}</span>
+						  <hr style="border-top: 3px solid red;">
+						</div>
+
+
+
+						  
+
+
+
+                        {% comment %} <input data-planprice="150" data-discount="0" type="radio" id="validity1" name="validity" class="select-validity" value="1" >
+                        <label for="validity1">50% off 3 Months </label> {% endcomment %}
+                        {% comment %} <div style="  display: flex;
+                        flex-direction: row;
+                        justify-content: space-between;
+                        align-items: center;
+                        width: 100%;
+                        font-size: 15px;
+                        color: rgba(255,255,255,0.7);
+                        margin-top: 10px;
+                        padding-top: 10px;
+                        border-top: 1px solid rgba(255,255,255,0.05);
+                        position: relative;
+                        padding-left: 15px;
+                        font-family: 'Open Sans', sans-serif;">
+
+                            <div class="sign__group sign__group--checkbox">
+								<input id="remember" name="remember" type="radio" checked="checked">
+								<label for="remember">30% off for 2 Months</label>
+							</div>
+                        </div> {% endcomment %}
+						<form action="{% url 'movies:check_sessi' subplanDetail.id %}"  method="post">
+							{% csrf_token %}
+
+						<button  type="submit" class="price__btn">Proceed to payment</button>
+						</form>
+					</div>
+
+                    
+				</div>
+				<!-- end price --> 
+
+
+				
+
+                
+
+			
+			</div>
+		</div>
+	</div>
+	<!-- end pricing -->
+
+	
+
+	<!-- features -->
+	<section class="section section--dark">
+		<div class="container">
+			<div class="row">
+				<!-- section title -->
+				<div class="col-12">
+					<h2 class="section__title section__title--no-margin">Our Features</h2>
+				</div>
+				<!-- end section title -->
+
+				<!-- feature -->
+				<div class="col-12 col-md-6 col-lg-4">
+					<div class="feature">
+						<i class="icon ion-ios-tv feature__icon"></i>
+						<h3 class="feature__title">Ultra HD</h3>
+						<p class="feature__text">If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>
+					</div>
+				</div>
+				<!-- end feature -->
+
+				<!-- feature -->
+				<div class="col-12 col-md-6 col-lg-4">
+					<div class="feature">
+						<i class="icon ion-ios-film feature__icon"></i>
+						<h3 class="feature__title">Film</h3>
+						<p class="feature__text">All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first.</p>
+					</div>
+				</div>
+				<!-- end feature -->
+
+				<!-- feature -->
+				<div class="col-12 col-md-6 col-lg-4">
+					<div class="feature">
+						<i class="icon ion-ios-trophy feature__icon"></i>
+						<h3 class="feature__title">Awards</h3>
+						<p class="feature__text">It to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining.</p>
+					</div>
+				</div>
+				<!-- end feature -->
+
+				<!-- feature -->
+				<div class="col-12 col-md-6 col-lg-4">
+					<div class="feature">
+						<i class="icon ion-ios-notifications feature__icon"></i>
+						<h3 class="feature__title">Notifications</h3>
+						<p class="feature__text">Various versions have evolved over the years, sometimes by accident, sometimes on purpose.</p>
+					</div>
+				</div>
+				<!-- end feature -->
+
+				<!-- feature -->
+				<div class="col-12 col-md-6 col-lg-4">
+					<div class="feature">
+						<i class="icon ion-ios-rocket feature__icon"></i>
+						<h3 class="feature__title">Rocket</h3>
+						<p class="feature__text">It to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting.</p>
+					</div>
+				</div>
+				<!-- end feature -->
+
+				<!-- feature -->
+				<div class="col-12 col-md-6 col-lg-4">
+					<div class="feature">
+						<i class="icon ion-ios-globe feature__icon"></i>
+						<h3 class="feature__title">Multi Language Subtitles </h3>
+						<p class="feature__text">Various versions have evolved over the years, sometimes by accident, sometimes on purpose.</p>
+					</div>
+				</div>
+				<!-- end feature -->
+			</div>
+		</div>
+	</section>
+	<!-- end features -->
+
+	<!-- partners -->
+	<section class="section">
+		<div class="container">
+			<div class="row">
+				<!-- section title -->
+				<div class="col-12">
+					<h2 class="section__title section__title--no-margin">Our Partners</h2>
+				</div>
+				<!-- end section title -->
+
+				<!-- section text -->
+				<div class="col-12">
+					<p class="section__text section__text--last-with-margin">It is a long <b>established</b> fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using.</p>
+				</div>
+				<!-- end section text -->
+
+				<!-- partner -->
+				<div class="col-6 col-sm-4 col-md-3 col-lg-2">
+					<a href="#" class="partner">
+						<img src="img/partners/themeforest-light-background.png" alt="" class="partner__img">
+					</a>
+				</div>
+				<!-- end partner -->
+
+				<!-- partner -->
+				<div class="col-6 col-sm-4 col-md-3 col-lg-2">
+					<a href="#" class="partner">
+						<img src="img/partners/audiojungle-light-background.png" alt="" class="partner__img">
+					</a>
+				</div>
+				<!-- end partner -->
+
+				<!-- partner -->
+				<div class="col-6 col-sm-4 col-md-3 col-lg-2">
+					<a href="#" class="partner">
+						<img src="img/partners/codecanyon-light-background.png" alt="" class="partner__img">
+					</a>
+				</div>
+				<!-- end partner -->
+
+				<!-- partner -->
+				<div class="col-6 col-sm-4 col-md-3 col-lg-2">
+					<a href="#" class="partner">
+						<img src="img/partners/photodune-light-background.png" alt="" class="partner__img">
+					</a>
+				</div>
+				<!-- end partner -->
+
+				<!-- partner -->
+				<div class="col-6 col-sm-4 col-md-3 col-lg-2">
+					<a href="#" class="partner">
+						<img src="img/partners/activeden-light-background.png" alt="" class="partner__img">
+					</a>
+				</div>
+				<!-- end partner -->
+
+				<!-- partner -->
+				<div class="col-6 col-sm-4 col-md-3 col-lg-2">
+					<a href="#" class="partner">
+						<img src="img/partners/3docean-light-background.png" alt="" class="partner__img">
+					</a>
+				</div>
+				<!-- end partner -->
+			</div>
+		</div>
+	</section>
+	<!-- end partners -->
+
+
+
+{% endblock content %}
